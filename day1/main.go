@@ -36,6 +36,9 @@ func main() {
 	fmt.Fprintln(os.Stdout, highestThreeCalories)
 }
 
+/**
+highest returns calorie count of highest elf
+*/
 func highest(fh fs.File) int {
 	elves := scanLines(fh)
 	highestCalories := 0
@@ -49,19 +52,17 @@ func highest(fh fs.File) int {
 	return highestCalories
 }
 
+/**
+highestThree returns sum of the highest three elves calorie count
+*/
 func highestThree(fh fs.File) int {
 	elves := scanLines(fh)
 	var elfTotalCalories []int
 
 	for _, elf := range elves {
-		var sum int
-		for _, value := range elf {
-			sum += value
-		}
-		elfTotalCalories = append(elfTotalCalories, sum)
+		elfTotalCalories = append(elfTotalCalories, countCalories(elf))
 	}
 
-	sort.Ints(elfTotalCalories)
 	sort.Sort(sort.Reverse(sort.IntSlice(elfTotalCalories)))
 
 	sum := 0
@@ -71,6 +72,10 @@ func highestThree(fh fs.File) int {
 	return sum
 }
 
+/**
+scanLines scans file line by line returning slice of slice of ints
+using an empty line as a deliminator
+*/
 func scanLines(fh fs.File) [][]int {
 	var elves [][]int
 	var calories []int
@@ -94,6 +99,9 @@ func scanLines(fh fs.File) [][]int {
 	return elves
 }
 
+/**
+countCalories returns sum of calories from an int slice
+*/
 func countCalories(is []int) int {
 	i := 0
 	for _, j := range is {
