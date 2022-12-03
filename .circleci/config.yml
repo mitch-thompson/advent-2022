@@ -17,9 +17,12 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Install Dependencies
+          command: go mod download
+      - run:
           name: Run tests
           command: |
-            go test
+            go test -coverprofile=c.out
   build_day2:
     resource_class: small
     working_directory: ~/repo/day2
@@ -32,9 +35,12 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Install Dependencies
+          command: go mod download
+      - run:
           name: Run tests
           command: |
-            go test
+            go test -coverprofile=c.out
   build_day3:
     resource_class: small
     working_directory: ~/repo/day3
@@ -46,6 +52,9 @@ jobs:
     # See: https://circleci.com/docs/2.0/configuration-reference/#steps
     steps:
       - checkout
+      - run:
+          name: Install Dependencies
+          command: go mod download
       - run:
           name: Run tests
           command: |
